@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Messages</title>
+  <script>
+    function parse() {
+      jsonData = '[{"id":1,"content":"Do you really want to hurt me?","username":"Boy"},{"id":2,"content":"Do you really want to make me cry?","username":"George"}]';
+      var info = JSON.parse(jsonData);
+      document.getElementById("messages").innerHTML = info[0].content + " " + info[0].username + "<br /><br />" + info[1].content+ " " + info[1].username;
+    }
+  </script>
+</head>
+
+<body onload="parse()">
+  <h1>Messages</h1>
+  <div id="messages"></div>
+</body>
+
+</html>
