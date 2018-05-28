@@ -1,0 +1,29 @@
+#title {
+	text-align: center;
+	line-height: 100px;
+	color: #FC4A1A;
+	font-size: 35px;
+	font-weight: lighter;
+	border-top: 4px solid #FC4A1A;
+	border-bottom: 4px solid #FC4A1A;
+	font-family: Courier New, monospace;
+}
+
+#rickroll {
+	position: absolute;
+	margin-left: 50%;
+	transform: translate(-50%, 0%);
+}
+
+#lyrics {
+	padding-top: 380px;
+	text-align: center;
+	color: #FC4A1A;
+	font-size: 20px;
+	font-weight: lighter;
+}
+
+body {
+	background-color: #233237;
+	font-family: Courier New, monospace;
+}
