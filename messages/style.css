@@ -1,1 +1,22 @@
-/* Your CSS here... */
+h1 {
+	text-align: center;
+	line-height: 100px;
+	color: #FC4A1A;
+	font-size: 35px;
+	font-weight: lighter;
+	border-top: 4px solid #FC4A1A;
+	border-bottom: 4px solid #FC4A1A;
+	font-family: Courier New, monospace;
+}
+
+body {
+	background-color: #233237;
+	font-family: Courier New, monospace;
+}
+
+#messages {
+	color: #FC4A1A;
+	font-size: 20px;
+	font-weight: lighter;
+	padding-left: 6px;
+}
