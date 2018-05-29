@@ -9,7 +9,12 @@
     function parse() {
       jsonData = '[{"id":1,"content":"Do you really want to hurt me?","username":"Boy"},{"id":2,"content":"Do you really want to make me cry?","username":"George"}]';
       var info = JSON.parse(jsonData);
-      document.getElementById("messages").innerHTML = info[0].content + " " + info[0].username + "<br /><br />" + info[1].content+ " " + info[1].username;
+      var messagetext = "";
+      for(var i in info)
+      {
+        messagetext += info[i].content + " " + info[i].username + "<br /><br />";
+      }
+      document.getElementById("messages").innerHTML = messagetext;
     }
   </script>
 </head>
