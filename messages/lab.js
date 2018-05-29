@@ -6,7 +6,7 @@ function parse() {
 			display_data(jsonData);
 		}
 	};
-	xmlhttp.open('GET', 'data.json', true);
+	xmlhttp.open('GET', 'https://messagehub.herokuapp.com/messages.json', true);
 	xmlhttp.send();
 }
 
