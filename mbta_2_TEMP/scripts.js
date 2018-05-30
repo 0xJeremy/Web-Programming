@@ -92,6 +92,7 @@ function initMap() {
 		});
 		distance = haversineDistance(user_pos, red_line[0].pos, true);
    		dis_station = red_line[0].station;
+   		dis_station_pos = red_line[0].pos;
    		for(var i in red_line)
    		{
    			temp_dist = haversineDistance(user_pos, red_line[i].pos, true);
@@ -99,14 +100,23 @@ function initMap() {
    			{
    				distance = temp_dist;
    				dis_station = red_line[i].station;
+   				dis_station_pos = red_line[i].pos;
    			}
    		}
    		distance = Math.round(distance * 1000)/1000;
 		var infowindow = new google.maps.InfoWindow({
 			content: "Closest Station: " + dis_station + " (" + distance + " miles)"
 		});
+		var user_path = new google.maps.Polyline({
+			path: [user_pos, dis_station_pos],
+			geodesic: true,
+			strokeColor: '#FF0000',
+			stokeOpacity: 1.0,
+			strokeWeight: 2	
+	 	});	
 		user.addListener('click', function() {
         	infowindow.open(map, user);
+        	user_path.setMap(map);
    		});
 	}
 	navigator.geolocation.getCurrentPosition(success);
