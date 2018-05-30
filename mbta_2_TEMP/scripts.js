@@ -54,11 +54,11 @@ function haversineDistance(coords1, coords2, isMiles) {
 		return x * Math.PI / 180;
 	}
 
-	var lon1 = coords1[0];
-	var lat1 = coords1[1];
+	var lat1 = coords1.lat;
+	var lon1 = coords1.lng;
 
-	var lon2 = coords2[0];
-	var lat2 = coords2[1];
+	var lat2 = coords2.lat;
+	var lon2 = coords2.lng;
 
 	var R = 6371; // km
 	var x1 = lat2 - lat1;
@@ -90,8 +90,20 @@ function initMap() {
 			map: map,
 			title: 'You',
 		});
+		distance = haversineDistance(user_pos, red_line[0].pos, true);
+   		dis_station = red_line[0].station;
+   		for(var i in red_line)
+   		{
+   			temp_dist = haversineDistance(user_pos, red_line[i].pos, true);
+   			if(temp_dist < distance)
+   			{
+   				distance = temp_dist;
+   				dis_station = red_line[i].station;
+   			}
+   		}
+   		distance = Math.round(distance * 1000)/1000;
 		var infowindow = new google.maps.InfoWindow({
-			content: "Hello!"
+			content: "Closest Station: " + dis_station + " (" + distance + " miles)"
 		});
 		user.addListener('click', function() {
         	infowindow.open(map, user);
