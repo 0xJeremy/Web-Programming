@@ -53,13 +53,10 @@ function haversineDistance(coords1, coords2, isMiles) {
 	function toRad(x) {
 		return x * Math.PI / 180;
 	}
-
 	var lat1 = coords1.lat;
 	var lon1 = coords1.lng;
-
 	var lat2 = coords2.lat;
 	var lon2 = coords2.lng;
-
 	var R = 6371; // km
 	var x1 = lat2 - lat1;
 	var dLat = toRad(x1);
@@ -70,34 +67,40 @@ function haversineDistance(coords1, coords2, isMiles) {
 			Math.sin(dLon / 2) * Math.sin(dLon / 2);
 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 	var d = R * c;
-
 	if(isMiles) d /= 1.60934;
 	return d;
 }
 
 function get_data(train_stop) {
 	var xmlhttp = new XMLHttpRequest();
+	var ready_data;
 	xmlhttp.onreadystatechange = function() {
 		if(this.readyState == 4 && this.status == 200) {
 			var jsonData = JSON.parse(this.responseText);
-			display_data(jsonData);
+			ready_data = display_data(jsonData);
+			return ready_data;
 		}
 	};
 	stop_url = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id=" + train_stop;
 	xmlhttp.open('GET', stop_url, true);
 	xmlhttp.send();
+	console.log(ready_data);
+	return ready_data;
 }
+
 function display_data(jsonData) {
 	var info = jsonData;
+	//console.log(info);
 	var messagetext = "";
-	for(var i in info)
+	for(var i in info.data)
 	{
-		messagetext += info[i][i][i];
+		messagetext += info.data[i].attributes.arrival_time;
 	}
 	return messagetext;
 }
 
 function initMap() {
+
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 42.352271, lng: -71.05524200000001},
 		zoom: 12
@@ -141,6 +144,7 @@ function initMap() {
         	user_path.setMap(map);
    		});
 	}
+
 	navigator.geolocation.getCurrentPosition(success);
 	for(var i in red_line)
 	{
@@ -151,7 +155,7 @@ function initMap() {
 			icon: image
 		});
 		var station_infowindow = new google.maps.InfoWindow({
-			content: get_data()
+			content: get_data(red_line[i].stop_id)
 		});
 		station.addListener('click', function() {
         	station_infowindow.open(map, station);
