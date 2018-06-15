@@ -71,14 +71,13 @@ function haversineDistance(coords1, coords2, isMiles) {
 	return d;
 }
 
+var ready_data;
 function get_data(train_stop) {
 	var xmlhttp = new XMLHttpRequest();
-	var ready_data;
 	xmlhttp.onreadystatechange = function() {
 		if(this.readyState == 4 && this.status == 200) {
 			var jsonData = JSON.parse(this.responseText);
 			ready_data = display_data(jsonData);
-			return ready_data;
 		}
 	};
 	stop_url = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id=" + train_stop;
@@ -90,7 +89,6 @@ function get_data(train_stop) {
 
 function display_data(jsonData) {
 	var info = jsonData;
-	//console.log(info);
 	var messagetext = "";
 	for(var i in info.data)
 	{
@@ -144,8 +142,9 @@ function initMap() {
         	user_path.setMap(map);
    		});
 	}
-
 	navigator.geolocation.getCurrentPosition(success);
+	
+	infowindow = new google.maps.InfoWindow();
 	for(var i in red_line)
 	{
 		var station = new google.maps.Marker({
@@ -154,12 +153,10 @@ function initMap() {
 			title: red_line[i].station,
 			icon: image
 		});
-		var station_infowindow = new google.maps.InfoWindow({
-			content: get_data(red_line[i].stop_id)
+		google.maps.event.addListener(station, 'click', function() {
+			infowindow.setContent(get_data(red_line[i].stop_id));
+			infowindow.open(map, this);
 		});
-		station.addListener('click', function() {
-        	station_infowindow.open(map, station);
-   		});
 	}
 
 	for(var i in red_line_tracks)
