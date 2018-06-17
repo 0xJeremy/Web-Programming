@@ -1,3 +1,0 @@
-1. This lab has been implemented according to the spec. Currently everything described in the spec works properly, but the "Going Beyond" section has not yet been implemented. Currently all javascript is hardcoded but I would like to use the MBTA API to parse their JSON files.
-2. This lab was done independently with no collaboration or discussion.
-3. Approximately 4 hours was spent on this lab. Most of that time was entering the train stop information by hand. Additionally, some of that time was spent researching the MBTA API and requesting an API key.
