@@ -83,16 +83,20 @@ function get_data(train_stop) {
 	stop_url = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id=" + train_stop;
 	xmlhttp.open('GET', stop_url, true);
 	xmlhttp.send();
-	console.log(ready_data);
 	return ready_data;
 }
 
 function display_data(jsonData) {
 	var info = jsonData;
-	var messagetext = "";
+	var messagetext = '<p>Train Shedule</p>';
 	for(var i in info.data)
 	{
-		messagetext += info.data[i].attributes.arrival_time;
+		var arrival_time = info.data[i].attributes.arrival_time;
+		arrival_time = arrival_time.substr(11);
+		var departure_time = info.data[i].attributes.departure_time;
+		departure_time = departure_time.substr(11);
+		messagetext += 'Arrival Time: ' + arrival_time + '</br>';
+		messagetext += 'Departure Time: ' + departure_time + '</br>';
 	}
 	return messagetext;
 }
