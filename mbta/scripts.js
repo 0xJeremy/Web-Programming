@@ -92,9 +92,9 @@ function display_data(jsonData) {
 	for(var i in info.data)
 	{
 		var arrival_time = info.data[i].attributes.arrival_time;
-		arrival_time = arrival_time.substr(11);
+		//arrival_time = arrival_time.substr(11);
 		var departure_time = info.data[i].attributes.departure_time;
-		departure_time = departure_time.substr(11);
+		//departure_time = departure_time.substr(11);
 		messagetext += 'Arrival Time: ' + arrival_time + '</br>';
 		messagetext += 'Departure Time: ' + departure_time + '</br>';
 	}
@@ -147,6 +147,13 @@ function initMap() {
    		});
 	}
 	navigator.geolocation.getCurrentPosition(success);
+
+	function window(station, id) {
+		google.maps.event.addListener(station, 'click', function() {
+			infowindow.setContent(get_data(id));
+			infowindow.open(map, station);
+		});
+	}
 	
 	infowindow = new google.maps.InfoWindow();
 	for(var i in red_line)
@@ -157,10 +164,8 @@ function initMap() {
 			title: red_line[i].station,
 			icon: image
 		});
-		google.maps.event.addListener(station, 'click', function() {
-			infowindow.setContent(get_data(red_line[i].stop_id));
-			infowindow.open(map, this);
-		});
+		var id = red_line[i].stop_id;
+		window(station, id);
 	}
 
 	for(var i in red_line_tracks)
