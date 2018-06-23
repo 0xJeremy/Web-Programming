@@ -80,7 +80,7 @@ function get_data(train_stop) {
 			ready_data = display_data(jsonData);
 		}
 	};
-	stop_url = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id=" + train_stop;
+	stop_url = "https://mysterious-escarpment-42964.herokuapp.com/redline/schedule.json?stop_id=" + train_stop;
 	xmlhttp.open('GET', stop_url, true);
 	xmlhttp.send();
 	return ready_data;
