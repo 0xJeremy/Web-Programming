@@ -1,0 +1,38 @@
+html {
+	padding-right: 1em;
+	padding-left: 1em;
+}
+
+header {
+	font-family: Courier New, monospace;
+	font-size: 30px;
+	font-weight: bold;
+	color: #FC4A1A;
+	text-align: center;
+}
+
+body {
+	font-family: Courier New, monospace;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #DFDCE3;
+	background-color: #233237;
+	margin-left: 10px;
+}
+
+h2 {
+	color: #FC4A1A;
+	border-bottom: 1px solid #FC4A1A;
+	font-size: 22px;
+}
+
+img {
+	width: auto;
+	height: auto;
+}
+
+#name {
+	text-align: center;
+	color: #FC4A1A;
+	font-size: 14px;
+}

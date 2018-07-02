@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>Web Security Report</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body vlink="white">
+	<header>Security Assessment of "Not Foursquare"</header>
+	<p id = "name">Written by Jeremy Kanovsky • July 1, 2018</p>
+	<h2>Introduction</h2>
+		<p>This assessment tests and examines the potential security flaws in the web app hosted at <a href="https://jordan-marsh.herokuapp.com/">https://jordan-marsh.herokuapp.com</a>. This web apprication was made by Ming Chow for the Tufts Comp 20 Web Security lab. The app's function is to allow users to make an entry with their login, latitude, and longitude. This information was then posted to the website's homepage, and accessible via a json link and a string query. Various security flaws make this application unstable and unusable for any form of public use as it can be easily sabotaged.</p>
+		<p>In this report, a vulnerability is counted as something that makes the web application potentially damaging for the server it is hosted on, or something potentially dangerous to front end users accessing the app. It is also something that causes the app to function differently as intended as a result of a coding or styling flaw. This report is in no way extensive of all the flaws, and only covers some of the most ovbious and the most catastrophic.</p>
+	<h2>Methodology</h2>
+		<p>This app was initially examined using "black-box" testing. This is an examination using only the information available to a potential attacker, and was done using the live web app hosted on Heroku. Several tools such as web crawlers were also used to find other webpages hosted on the same app. The source code for the server was then examined to reveal other flaws and potential logical errors which could cause the server to crash or become unstable.</p>
+	<h2>Abstract of Findings</h2>
+		<p>This web application has several gaping vulnerabilities that allow users to cause fatal damage to the server and to other users accessing the pages. User input was not sanatised correctly allowing scripts to be stored and executed from the server, logical errors in the code caused specific pages to crash, and poor coding practices caused the existence of additional flaws</p>
+	<h2>Issues Found</h2>
+		<ol>
+			<li>HTML Injection</li>
+				<ul>Issue: HTML injection into MongoDB</ul>
+				<ul>Location: <a href="https://jordan-marsh.herokuapp.com/entry.html">https://jordan-marsh.herokuapp.com/entry.html</a></ul>
+				<ul>Severity: <font color="red">HIGH</font></ul>
+				<ul>Description: HTML code can be injected into the login section of the entry page. To do so, the maximum length of the entry allowed in the box must first be changed from 10 to a value greater than the length of the desired input. Next, any HTML code can be entered. In this example, a script HTML tag was used to enter JavaScript code. When the user visited the homepage of the application, the code entered would be executed as the page tried to load the value from the database.</ul>
+				<ul>Proof of Vulnerability: </br><img src="html_injection_1.png" alt="Proof of HTML Injection">
+				</br><img src="html_injection_2.png"></ul>
+				<ul>Potential Resolution: </ul>
+			<li>Latitude/Longitude Values</li>
+				<ul>Issue: </ul>
+				<ul>Location: </ul>
+				<ul>Severity: </ul>
+				<ul>Description: </ul>
+				<ul>Proof of Vulnerability: </ul>
+				<ul>Potential Resolution: </ul>
+		</ol>
+	<h2>Conclusion</h2>
+</body>
