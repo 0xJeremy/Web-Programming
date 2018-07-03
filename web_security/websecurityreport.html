@@ -25,14 +25,24 @@
 				<ul>Description: HTML code can be injected into the login section of the entry page. To do so, the maximum length of the entry allowed in the box must first be changed from 10 to a value greater than the length of the desired input. Next, any HTML code can be entered. In this example, a script HTML tag was used to enter JavaScript code. When the user visited the homepage of the application, the code entered would be executed as the page tried to load the value from the database.</ul>
 				<ul>Proof of Vulnerability: </br><img src="html_injection_1.png" alt="Proof of HTML Injection">
 				</br><img src="html_injection_2.png"></ul>
-				<ul>Potential Resolution: </ul>
+				<ul>Potential Resolution: To resolve this rather disasterous issue, the input to the MongoDB must be sanitized. There are two steps to resolve the issue. First, the limit on characters that can be entered should be checked server-side instead of client-side. As it stands, the user can change the value at will and the server will not reject longer strings. The second issue is that HTML code can be entered into the database and then executed when the homepage loads. To do this, there are npm packages designed for this specific issue. The link is <a href="https://www.npmjs.com/package/mongo-sanitize">https://www.npmjs.com/package/mongo-sanitize</a> and <a href="https://www.npmjs.com/package/express-mongo-sanitize">https://www.npmjs.com/package/express-mongo-sanitize</a>.</ul>
 			<li>Latitude/Longitude Values</li>
-				<ul>Issue: </ul>
-				<ul>Location: </ul>
-				<ul>Severity: </ul>
-				<ul>Description: </ul>
-				<ul>Proof of Vulnerability: </ul>
-				<ul>Potential Resolution: </ul>
+				<ul>Issue: Logical error in server code</ul>
+				<ul>Location: <a href="https://jordan-marsh.herokuapp.com/entry.html">https://jordan-marsh.herokuapp.com/entry.html</a></ul>
+				<ul>Severity: <font color="green"></font></ul>
+				<ul>Description: On the entry page of the web app, there is a logical error in the code that causes specific latitude and longitude inputs to cause the page to crash. This can be witnessed in the following line of server code: <pre><code>if (lat >= -90.0 && lat <= 90 && lng >= -180 && lng <= 180)</code></pre>If a value outside the ranges specified in the code, the server will not know how to treat the input. A case has not been defined as to what to do if the input is outside that range.</ul>
+				<ul>Proof of Vulnerability: This vulnerability can be seen in the code snippet above, and in the screenshot below.</br><img src="lat_lng_1.png" alt="Proof of Latitude and Longitude logic error"></ul>
+				<ul>Potential Resolution: To fix this bug a very simple else statement is needed. It could be as simple as redirecting the user to a page stating there is an issue with their input.</ul>
+			<li>Database Spam with /submit</li>
+				<ul>Issue: Users can add values to the database with a curl request to the submit extension of the website.</ul>
+				<ul>Location: <a href="https://jordan-marsh.herokuapp.com/submit">https://jordan-marsh.herokuapp.com/submit</a></ul>
+				<ul>Severity: <font color="red">HIGH</font></ul>
+				<ul>Description: Using the curl command, users are able to add entries to the entry database quickly and easily. Normally this wouldn't be an issue, except the command can be exploited. Using a small script allows users to automate the process to add upwards of 30 database entries per second. The code for this is show below: <pre><code>#!/bin/bash
+while true; do
+	curl --silent --output /dev/null --data "login=HELLO_MING&lat=1&lng=1" https://jordan-marsh.herokuapp.com/submit
+done</code></pre>When this bash script is run in multiple instances, or by multiple computers, the number of entries could be upward of 250,000 over a two hour period (see proof below). This exploit would not only clog the website, but cause the database to grow to massive sizes. Additionally, further exploits could be embedded in the entries. For example, if the user entered an HTML injection (see exploit above) that caused the page to redirect to itself, the users browser could slow to a crawl, or become unusable entirely.</ul>
+				<ul>Proof of Vulnerability: </br><img src="submit.png" alt="Proof of Database /submit exploit"></ul>
+				<ul>Potential Resolution: To resolve this issue, the number of entries to the database should be limited. For example, the number of entries from a specific IP address could be limited to a certain number per hour, or the rate at which they are entered could be limited. Additionally a CAPTCHA could be implemented so as to avoid malicious scripting.</ul>
 		</ol>
 	<h2>Conclusion</h2>
 </body>
